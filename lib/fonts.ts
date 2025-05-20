@@ -6,12 +6,28 @@ import {
 	Mulish,
 	Noto_Sans_Mono,
 } from "next/font/google";
-
+import localFont from "next/font/local";
 import { cn } from "@/lib/utils";
 
-const fontSans = Geist({
-	subsets: ["latin"],
+const fontSans = localFont({
+	src: [
+		{
+			path: "../public/bin/style/PhantomSans_Regular.woff",
+			weight: "400",
+			style: "normal",
+		},
+		{
+			path: "../public/bin/style/PhantomSans_Bold.woff",
+			weight: "700",
+			style: "normal",
+		},
+	],
 	variable: "--font-sans",
+});
+
+const fontGeist = Geist({
+	subsets: ["latin"],
+	variable: "--font-geist-sans",
 });
 
 const fontMono = Geist_Mono({
@@ -42,6 +58,7 @@ const fontInter = Inter({
 export const fontVariables = cn(
 	fontSans.variable,
 	fontMono.variable,
+	fontGeist.variable,
 	fontInstrument.variable,
 	fontNotoMono.variable,
 	fontMulish.variable,

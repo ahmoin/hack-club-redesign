@@ -5,20 +5,22 @@ import { usePathname } from "next/navigation";
 
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
+import { Flag } from "@/components/flag";
 
 export function MainNav() {
 	const pathname = usePathname();
 
 	return (
 		<div className="mr-4 hidden md:flex">
-			<Link
+			{/* <Link
 				href="/"
 				className="mr-4 flex items-center gap-2 lg:mr-6 text-special"
 			>
 				<span className="hidden font-bold text-2xl lg:inline-block">
 					{siteConfig.name}
 				</span>
-			</Link>
+			</Link> */}
+			<Flag />
 			<nav className="flex items-center gap-4 text-sm xl:gap-6">
 				<Link
 					href="/clubs"
