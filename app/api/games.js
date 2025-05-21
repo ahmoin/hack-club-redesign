@@ -1,6 +1,6 @@
 export async function getGames() {
 	try {
-		let games = await fetch("https://sprig.hackclub.com/api/gallery?new").then(
+		const games = await fetch("https://sprig.hackclub.com/api/gallery?new").then(
 			(res) => res.json(),
 		);
 
@@ -11,7 +11,7 @@ export async function getGames() {
 	}
 }
 
-export default async function Games(req, res) {
+export default async function Games(_req, res) {
 	const games = await getGames();
 	res.json(games);
 }

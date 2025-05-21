@@ -1,4 +1,4 @@
-async function yap(
+async function _yap(
 	text,
 	{
 		letterCallback = () => {},
@@ -7,7 +7,7 @@ async function yap(
 		rateVariance = 0.5,
 	},
 ) {
-	let volume = 0.2;
+	const volume = 0.2;
 	// if (muted) { endCallback(); return }
 	const yap_sounds = {
 		// these sounds and most of the yapping code are adapted from https://github.com/equalo-official/animalese-generator
@@ -49,29 +49,29 @@ async function yap(
 		try {
 			if (char === "s" && text[i + 1] === "h") {
 				// test for 'sh' sound
-				yap_queue.push(yap_sounds["sh"]);
+				yap_queue.push(yap_sounds.sh);
 				continue;
 			} else if (char === "t" && text[i + 1] === "h") {
 				// test for 'th' sound
-				yap_queue.push(yap_sounds["th"]);
+				yap_queue.push(yap_sounds.th);
 				continue;
 			} else if (char === "h" && (text[i - 1] === "s" || text[i - 1] === "t")) {
 				// test if previous letter was 's' or 't' and current letter is 'h'
-				yap_queue.push(yap_sounds["_"]);
+				yap_queue.push(yap_sounds._);
 				continue;
 			} else if (char === "," || char === "?" || char === ".") {
-				yap_queue.push(yap_sounds["_"]);
+				yap_queue.push(yap_sounds._);
 				continue;
 			} else if (char === text[i - 1]) {
 				// skip repeat letters
-				yap_queue.push(yap_sounds["_"]);
+				yap_queue.push(yap_sounds._);
 				continue;
 			}
-		} catch (e) {
+		} catch (_e) {
 			// who cares. pick up a foot ball
 		}
 		if (!char.match(/[a-zA-Z.]/)) {
-			yap_queue.push(yap_sounds["_"]);
+			yap_queue.push(yap_sounds._);
 			continue; // skip characters that are not letters or periods
 		}
 		yap_queue.push(yap_sounds[char]);
@@ -83,7 +83,7 @@ async function yap(
 			endCallback();
 			return;
 		}
-		let noise = yap_queue.shift();
+		const noise = yap_queue.shift();
 		noise.rate(Math.random() * rateVariance + baseRate);
 		noise.once("end", next_yap);
 		noise.play();

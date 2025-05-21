@@ -14,8 +14,8 @@ export default async function handler(req, res) {
 
 		const fields = {
 			Email: email,
-			"High Schooler": "" + high_schooler,
-			Stickers: "" + stickers,
+			"High Schooler": `${high_schooler}`,
+			Stickers: `${stickers}`,
 			"Address (line 1)": address_line_1,
 			"Address (zip code)": address_zip,
 		};
@@ -23,7 +23,7 @@ export default async function handler(req, res) {
 		await rsvpsTable.create(fields);
 
 		res.status(200).json({ success: true });
-	} else if (req.method == "GET") {
+	} else if (req.method === "GET") {
 		const result = await rsvpsTable.read();
 
 		res.status(200).json(result.length);

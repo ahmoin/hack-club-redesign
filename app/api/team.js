@@ -21,14 +21,14 @@ export async function fetchTeam() {
 	const current = [];
 	const acknowledged = [];
 
-	for (let record of records.sort(
-		(a, b) => a.fields["Order"] - b.fields["Order"],
+	for (const record of records.sort(
+		(a, b) => a.fields.Order - b.fields.Order,
 	)) {
 		const member = {
-			name: record.fields["Name"],
-			bio: record.fields["Bio"] || null,
-			department: record.fields["Department"],
-			role: record.fields["Role"],
+			name: record.fields.Name,
+			bio: record.fields.Bio || null,
+			department: record.fields.Department,
+			role: record.fields.Role,
 			bio_hackfoundation: null,
 			pronouns: null,
 			slack_id: record.fields["Slack ID"] || null,
@@ -37,8 +37,8 @@ export async function fetchTeam() {
 				? record.fields["Override Avatar"][0].thumbnails.large.url
 				: null,
 			avatar_id: "",
-			email: record.fields["Email"] || null,
-			website: record.fields["Website"] || null,
+			email: record.fields.Email || null,
+			website: record.fields.Website || null,
 		};
 
 		if (process.env.SLACK_API_TOKEN) {
@@ -63,7 +63,7 @@ export async function fetchTeam() {
 			}
 		}
 
-		if (record.fields["Acknowledged"]) {
+		if (record.fields.Acknowledged) {
 			acknowledged.push(member);
 		} else {
 			current.push(member);
@@ -81,7 +81,7 @@ export async function fetchTeam() {
 	};
 }
 
-export default async function handler(req, res) {
+export default async function handler(_req, res) {
 	const team = await fetchTeam();
 
 	res.status(200).json({

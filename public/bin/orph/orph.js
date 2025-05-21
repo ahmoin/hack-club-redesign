@@ -1,4 +1,4 @@
-window.addEventListener("load", (e) => {
+window.addEventListener("load", (_e) => {
 	const link = document.createElement("link");
 	link.href = "../orph.css";
 	link.rel = "stylesheet";

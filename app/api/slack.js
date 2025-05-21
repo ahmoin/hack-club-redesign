@@ -9,7 +9,7 @@ export async function Slack() {
 	formData.append("token", process.env.SLACK_API_TOKEN);
 	formData.append("date_range", "30d");
 
-	let slackData = await fetch(
+	const slackData = await fetch(
 		"https://hackclub.slack.com/api/team.stats.timeSeries",
 		{
 			method: "POST",
@@ -29,6 +29,6 @@ export async function Slack() {
 	}
 }
 
-export default async function Slacky(req, res) {
+export default async function Slacky(_req, res) {
 	res.status(200).json(await Slack());
 }

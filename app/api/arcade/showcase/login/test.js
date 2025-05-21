@@ -18,7 +18,7 @@ export const testAuth = async (authToken) => {
 };
 
 export const ensureAuthed = async (req) => {
-	const authToken = req.headers["authorization"]?.replace("Bearer ", "");
+	const authToken = req.headers.authorization?.replace("Bearer ", "");
 	const user = await testAuth(authToken || "");
 	if (!user) {
 		return { error: "User not found" };

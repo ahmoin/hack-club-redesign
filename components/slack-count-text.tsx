@@ -1,6 +1,6 @@
 "use client";
 
-import { HTMLAttributes } from "react";
+import type { HTMLAttributes } from "react";
 import { NumberTicker } from "@/components/number-ticker";
 
 export function SlackCountText({

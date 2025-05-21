@@ -46,7 +46,7 @@ export default async function handler(req, res) {
 			return res.status(405).json({ error: "Method not allowed, use POST" });
 	}
 
-	let data = req.body || {};
+	const data = req.body || {};
 	const open = process.env.NEXT_PUBLIC_OPEN === "true";
 	const waitlist = !open;
 	const isAdult = data.year === "tertiary";

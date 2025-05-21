@@ -18,7 +18,7 @@ export const getAllOnboardProjects = async () => {
 		return [];
 	}
 
-	if (res.message && res.message.startsWith("API rate limit exceeded")) {
+	if (res.message?.startsWith("API rate limit exceeded")) {
 		console.error("GitHub API rate limit exceeded");
 		return [];
 	}
@@ -56,7 +56,7 @@ export const getAllOnboardProjects = async () => {
 	return projects;
 };
 
-export default async function handler(req, res) {
+export default async function handler(_req, res) {
 	const projects = await getAllOnboardProjects();
 
 	res.json(projects);

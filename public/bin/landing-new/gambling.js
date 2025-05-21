@@ -2,7 +2,7 @@ var fetchedParts;
 var selectedParts = [];
 var rolled = false;
 
-let yap_sounds = {
+const yap_sounds = {
 	// ty caleb!
 	thinking: [
 		new Howl({ src: "/bin/yapping/thonk1.wav" }),
@@ -65,7 +65,7 @@ async function saveImageToCache(item) {
     const blob = URL.createObjectURL(image)
     localStorage.setItem(item.wokwiName, blob);
 }*/
-function removeItemByAttribute(arr, attr, value) {
+function _removeItemByAttribute(arr, attr, value) {
 	return arr.filter((item) => item[attr] !== value);
 }
 function addComponentsToPage(data) {
@@ -91,14 +91,14 @@ function addComponentsToPage(data) {
             spinnerItem.appendChild(p);
             element.appendChild(spinnerItem)
         })*/
-		let component = data[0];
-		let spinnerItem = document.createElement("div");
+		const component = data[0];
+		const spinnerItem = document.createElement("div");
 		spinnerItem.className = "spinner-item";
 
-		let spinnerInfo = document.createElement("div");
+		const spinnerInfo = document.createElement("div");
 		spinnerInfo.className = "spinner-info";
 
-		let spinnerImage = document.createElement("img");
+		const spinnerImage = document.createElement("img");
 		spinnerImage.src =
 			"https://imgk.timesnownews.com/story/raccoon_GettyImages-914090712.jpg";
 		spinnerImage.className = "spinner-item-image";
@@ -138,35 +138,35 @@ function rollPartsAnimation(ms = 1000) {
 }
 
 function randomizeParts() {
-	let chosenParts = [];
+	const chosenParts = [];
 	// for the first one, pick an input component
-	const inputParts = fetchedParts.filter((part) => part.type == "Input");
+	const inputParts = fetchedParts.filter((part) => part.type === "Input");
 	const inputPart = sample(inputParts);
 	chosenParts.push(inputPart);
 	console.log(`For the input part, we picked ${inputPart.name}`);
 	// for the second one, pick an output component
-	const outputParts = fetchedParts.filter((part) => part.type == "Output");
+	const outputParts = fetchedParts.filter((part) => part.type === "Output");
 	const outputPart = sample(outputParts);
 	chosenParts.push(outputPart);
 	console.log(`For the output part, we picked ${outputPart.name}`);
 	// for the rest, pick any component
 	const unusedParts = fetchedParts.filter(
-		(part) => part.name != inputPart.name && part.name != outputPart.name,
+		(part) => part.name !== inputPart.name && part.name !== outputPart.name,
 	);
 	const thirdPart = sample(unusedParts);
 	chosenParts.push(thirdPart);
 	console.log(`For the third part, we picked ${thirdPart.name}`);
-	let chosenPartNames = [];
+	const chosenPartNames = [];
 	document
 		.querySelectorAll(".gambling-item-wrapper")
 		.forEach((element, key) => {
-			let thisPart = chosenParts[key];
+			const thisPart = chosenParts[key];
 			//console.log(`Hydrating part ${key} with ${thisPart.name}`)
-			let spinnerImage = element.childNodes[2].childNodes[0];
-			let partTitle = element.childNodes[2].childNodes[1].childNodes[0];
-			let flavorText = element.childNodes[2].childNodes[1].childNodes[1];
+			const spinnerImage = element.childNodes[2].childNodes[0];
+			const partTitle = element.childNodes[2].childNodes[1].childNodes[0];
+			const flavorText = element.childNodes[2].childNodes[1].childNodes[1];
 			spinnerImage.src =
-				thisPart.imageUrl == "" || thisPart.imageUrl == undefined
+				thisPart.imageUrl === "" || thisPart.imageUrl === undefined
 					? "https://awdev.codes/images/ww.gif"
 					: thisPart.imageUrl;
 			//spinnerImage.src = (thisPart.imageUrl == "" || thisPart.imageUrl == undefined) ? localStorage.getItem("wokwi-pedro") : localStorage.getItem(thisPart.wokwiName)
@@ -181,7 +181,7 @@ const rollSound = new Howl({
 	src: "https://cloud-eclxkeatl-hack-club-bot.vercel.app/0mario-kart-item-box-sound-mp3cut_audio.mp4",
 });
 
-function rollParts(el) {
+function _rollParts(el) {
 	if (el.classList.contains("disabled")) {
 		return;
 	}
@@ -198,7 +198,7 @@ function rollParts(el) {
 	rollPartsAnimation(1200);
 }
 
-async function generateBuildLink(e) {
+async function _generateBuildLink(e) {
 	if (!rolled) {
 		return;
 	}
@@ -215,7 +215,7 @@ async function generateBuildLink(e) {
 	e.classList.remove("loading");
 }
 
-window.addEventListener("load", async (e) => {
+window.addEventListener("load", async (_e) => {
 	fetchedParts = (await partsData()).filter((p) => p.rollable);
 	document.querySelector(".gambling-roll").classList.remove("disabled");
 });
@@ -228,29 +228,29 @@ async function yap(text, letterCallback) {
 		try {
 			if (char === "s" && text[i + 1] === "h") {
 				// test for 'sh' sound
-				yap_queue.push(yap_sounds.talking["sh"]);
+				yap_queue.push(yap_sounds.talking.sh);
 				continue;
 			} else if (char === "t" && text[i + 1] === "h") {
 				// test for 'th' sound
-				yap_queue.push(yap_sounds.talking["th"]);
+				yap_queue.push(yap_sounds.talking.th);
 				continue;
 			} else if (char === "h" && (text[i - 1] === "s" || text[i - 1] === "t")) {
 				// test if previous letter was 's' or 't' and current letter is 'h'
-				yap_queue.push(yap_sounds.talking["_"]);
+				yap_queue.push(yap_sounds.talking._);
 				continue;
 			} else if (char === "," || char === "?" || char === ".") {
-				yap_queue.push(yap_sounds.talking["_"]);
+				yap_queue.push(yap_sounds.talking._);
 				continue;
 			} else if (char === text[i - 1]) {
 				// skip repeat letters
-				yap_queue.push(yap_sounds.talking["_"]);
+				yap_queue.push(yap_sounds.talking._);
 				continue;
 			}
-		} catch (e) {
+		} catch (_e) {
 			// who cares. pick up a foot ball
 		}
 		if (!char.match(/[a-zA-Z.]/)) {
-			yap_queue.push(yap_sounds.talking["_"]);
+			yap_queue.push(yap_sounds.talking._);
 			continue; // skip characters that are not letters or periods
 		}
 		yap_queue.push(yap_sounds.talking[char]);
@@ -259,7 +259,7 @@ async function yap(text, letterCallback) {
 	function next_yap() {
 		letterCallback(yap_queue.length);
 		if (yap_queue.length === 0) return;
-		let noise = yap_queue.shift();
+		const noise = yap_queue.shift();
 		noise.rate(2 * (Math.random() * 0.5 + 1.9));
 		noise.once("end", next_yap);
 		noise.play();
@@ -268,7 +268,7 @@ async function yap(text, letterCallback) {
 	next_yap();
 }
 
-async function generateProjectIdea() {
+async function _generateProjectIdea() {
 	if (
 		document
 			.querySelector("#generate-project-idea")
@@ -280,11 +280,11 @@ async function generateProjectIdea() {
 	yap_sounds.thinking[getRandomInt(yap_sounds.thinking.length)].play();
 	document.querySelector("#generate-project-idea").classList.add("disabled");
 	document.querySelector("#project-idea").innerHTML =
-		"<em>" + thinkingWords() + "..." + "</em>";
+		`<em>${thinkingWords()}...</em>`;
 	document.querySelector("#generate-project-idea").src =
 		"https://cloud-80eg2m8id-hack-club-bot.vercel.app/0thinking_rac.png";
 	let text = "";
-	if (selectedParts.length == 0) {
+	if (selectedParts.length === 0) {
 		text = "You need to rummage for some parts first!";
 	} else {
 		const res = await fetch("/api/bin/openai/", {

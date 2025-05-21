@@ -76,7 +76,7 @@ export default async function handler(req, res) {
 				"Content-Type": "application/json",
 			},
 		})
-			.then((r) => {
+			.then((_r) => {
 				res.json({ status: "success" });
 			})
 			.catch((error) => {

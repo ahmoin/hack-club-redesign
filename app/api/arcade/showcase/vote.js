@@ -18,7 +18,7 @@ export default async function handler(req, res) {
 	}
 
 	try {
-		const authorization = req.headers["authorization"]
+		const authorization = req.headers.authorization
 			?.replace("Bearer ", "")
 			.replace(/[^a-zA-Z0-9-]/g, "");
 
@@ -40,7 +40,7 @@ export default async function handler(req, res) {
 				.json({ error: "Missing or invalid authorization header" });
 		}
 
-		if (user.fields["Voted"]) {
+		if (user.fields.Voted) {
 			return res.status(404).json({ error: "Already voted" });
 		}
 
@@ -52,7 +52,7 @@ export default async function handler(req, res) {
 
 		const pointsDistribution = [5, 4, 3, 2, 1];
 
-		let votesToCreate = [];
+		const votesToCreate = [];
 
 		for (let i = 0; i < overall.length; i++) {
 			const project = overall[i];
@@ -63,7 +63,7 @@ export default async function handler(req, res) {
 					project,
 					points,
 					user.id,
-					user.fields?.["Cohorts"]?.[0],
+					user.fields?.Cohorts?.[0],
 					"Overall",
 				),
 			);
@@ -78,7 +78,7 @@ export default async function handler(req, res) {
 					project,
 					points,
 					user.id,
-					user.fields?.["Cohorts"]?.[0],
+					user.fields?.Cohorts?.[0],
 					"Technical",
 				),
 			);
@@ -93,7 +93,7 @@ export default async function handler(req, res) {
 					project,
 					points,
 					user.id,
-					user.fields?.["Cohorts"]?.[0],
+					user.fields?.Cohorts?.[0],
 					"Creative",
 				),
 			);

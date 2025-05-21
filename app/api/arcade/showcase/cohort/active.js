@@ -60,7 +60,7 @@ async function getUserFromAuth(authToken) {
 }
 
 export default async function handler(req, res) {
-	const authorization = req.headers["authorization"]
+	const authorization = req.headers.authorization
 		?.replace("Bearer ", "")
 		?.replace(/[^a-zA-Z0-9-]/g, "");
 
@@ -81,7 +81,7 @@ export default async function handler(req, res) {
 	}
 
 	res.status(200).json({
-		voted: user.fields["Voted"],
+		voted: user.fields.Voted,
 		cohort: {
 			id: cohort.id,
 		},

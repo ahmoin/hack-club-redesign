@@ -6,7 +6,7 @@ async function pullFromStorage() {
 		console.log("No timestamp found in storage");
 		return null;
 	}
-	const now = new Date().getTime();
+	const now = Date.now();
 	const expiration = 1000 * 60 * 5; // 5 min
 
 	if (ts && now - ts < expiration) {
@@ -19,7 +19,7 @@ async function pullFromStorage() {
 
 async function setToStorage(data) {
 	localStorage.setItem("partsData", JSON.stringify(data));
-	localStorage.setItem("partsDataTimestamp", new Date().getTime());
+	localStorage.setItem("partsDataTimestamp", Date.now());
 }
 
 async function fetchPartsData() {

@@ -6,7 +6,7 @@ import {
 	renderBoard,
 	stringifySvg,
 } from "@tracespace/core";
-import fs from "fs";
+import fs from "node:fs";
 
 export const gerberToSvg = async (gerberURL) => {
 	const data = await fetch(gerberURL).then((res) => {
@@ -45,7 +45,7 @@ export const gerberToSvg = async (gerberURL) => {
 			if (allowedExtensions.includes(extension)) {
 				const filePath = `/tmp/${filename}`;
 				await new Promise((resolve, _reject) => {
-					file.async("uint8array").then(function (fileData) {
+					file.async("uint8array").then((fileData) => {
 						fs.writeFileSync(filePath, fileData);
 						files.push(filePath);
 						resolve();

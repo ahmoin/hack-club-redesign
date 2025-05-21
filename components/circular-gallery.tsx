@@ -558,7 +558,7 @@ class App {
 				text: "Palm Trees",
 			},
 		];
-		const galleryItems = items && items.length ? items : defaultItems;
+		const galleryItems = items?.length ? items : defaultItems;
 		this.mediasImages = galleryItems.concat(galleryItems);
 		this.medias = this.mediasImages.map((data, index) => {
 			return new Media({
@@ -675,9 +675,7 @@ class App {
 		window.removeEventListener("touchmove", this.boundOnTouchMove);
 		window.removeEventListener("touchend", this.boundOnTouchUp);
 		if (
-			this.renderer &&
-			this.renderer.gl &&
-			this.renderer.gl.canvas.parentNode
+			this.renderer?.gl?.canvas.parentNode
 		) {
 			this.renderer.gl.canvas.parentNode.removeChild(
 				this.renderer.gl.canvas as HTMLCanvasElement,

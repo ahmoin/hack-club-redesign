@@ -23,7 +23,7 @@ const wokwiParts = async () => {
 	return parts;
 };
 
-export default async function handler(req, res) {
+export default async function handler(_req, res) {
 	const data = await wokwiParts();
 	res.status(200).json(data);
 }

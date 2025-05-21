@@ -25,7 +25,7 @@ const getMeme = () => {
 	return sample(raccoonMemes);
 };
 
-window.addEventListener("load", async (e) => {
+window.addEventListener("load", async (_e) => {
 	const el = document.querySelector("#meme");
 	el.src = getMeme();
 	el.onclick = () => {

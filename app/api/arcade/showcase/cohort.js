@@ -15,25 +15,24 @@ export default async function handler(req, res) {
 
 	const projects = await airtable.read({
 		filterByFormula: `AND(
-    {User} = '${user.fields["Name"]}',
+    {User} = '${user.fields.Name}',
     NOT({deleted})
     )`,
 	});
 
 	const results = projects.map((p) => ({
 		id: p.id,
-		title: p.fields["Name"] || "",
-		desc: p.fields["Description"] || "",
-		slackLink: p.fields["Slack Link"] || "",
+		title: p.fields.Name || "",
+		desc: p.fields.Description || "",
 		codeLink: p.fields["Code Link"] || "",
 		slackLink: p.fields["Slack Link"] || "",
 		playLink: p.fields["Play Link"] || "",
 		// images: (p.fields['Screenshot'] || []).map(i => i.url),
-		imageLink: p.fields["ScreenshotLink"] || "",
+		imageLink: p.fields.ScreenshotLink || "",
 		githubProf: p.fields["Github Profile"] || "",
-		user: user.fields["Name"],
-		color: p.fields["color"] || "",
-		textColor: p.fields["textColor"] || "",
+		user: user.fields.Name,
+		color: p.fields.color || "",
+		textColor: p.fields.textColor || "",
 	}));
-	return res.status(200).json({ projects: results, name: user.fields["Name"] });
+	return res.status(200).json({ projects: results, name: user.fields.Name });
 }

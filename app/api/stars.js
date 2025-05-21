@@ -52,6 +52,6 @@ export async function fetchStars() {
 	return organization;
 }
 
-export default async function Stars(req, res) {
+export default async function Stars(_req, res) {
 	res.status(200).json(await fetchStars());
 }

@@ -22,7 +22,7 @@ const inventoryParts = async () => {
 	return records;
 };
 
-export default async function handler(req, res) {
+export default async function handler(_req, res) {
 	const data = {};
 	await Promise.all([
 		inventoryParts().then((d) => (data.inventory = d)),
@@ -30,23 +30,23 @@ export default async function handler(req, res) {
 	]);
 
 	const inventoryResults = data.inventory
-		.filter((record) => record.fields["Enabled"])
+		.filter((record) => record.fields.Enabled)
 		.map((record) => {
 			return {
-				name: record.fields["Name"],
+				name: record.fields.Name,
 				smallName: record.fields["Name Small Text"],
-				hours: record.fields["Hours"],
+				hours: record.fields.Hours,
 				imageURL: record.fields["Image URL"],
 				formURL: record.fields["Order Form URL"],
-				description: record.fields["Description"],
+				description: record.fields.Description,
 				flavorText: record?.fields["Flavor text"]?.map((recordID) => {
-					const flavorRecord = data.flavor.find((f) => f.id == recordID);
+					const flavorRecord = data.flavor.find((f) => f.id === recordID);
 					const result = {
-						message: flavorRecord.fields["Message"],
-						character: flavorRecord.fields["Character"],
+						message: flavorRecord.fields.Message,
+						character: flavorRecord.fields.Character,
 						imageURL: flavorRecord.fields["Image URL"],
 					};
-					if (flavorRecord.fields["Shopkeepers"]) {
+					if (flavorRecord.fields.Shopkeepers) {
 						result.characterURL =
 							flavorRecord.fields["Image Link (from Shopkeepers)"][0];
 						result.character =
@@ -63,7 +63,7 @@ export default async function handler(req, res) {
 		.forEach((record) => {
 			const char = record.fields["Character (from Shopkeepers)"][0];
 			const charURL = record.fields["Image Link (from Shopkeepers)"][0];
-			const charMsg = record.fields["Message"];
+			const charMsg = record.fields.Message;
 			selfClicks[char] = selfClicks[char] || [];
 			selfClicks[char].push({
 				message: charMsg,

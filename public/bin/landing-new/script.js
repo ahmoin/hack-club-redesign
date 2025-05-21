@@ -5,7 +5,7 @@ function init() {
 		el.draggable = false;
 	});
 }
-function getRandomInt(max) {
+function _getRandomInt(max) {
 	return Math.floor(Math.random() * max);
 }
 
@@ -14,7 +14,7 @@ function opf(number) {
 }
 
 function onScroll() {
-	let scrollButton = document.querySelector(".scroll-prompt");
+	const scrollButton = document.querySelector(".scroll-prompt");
 	scrollButton.style.opacity = opf(window.scrollY / 200);
 }
 
@@ -38,7 +38,7 @@ async function fetchAndLogTextFile(url) {
 }
 function recalculateSectionHeight() {
 	document.querySelectorAll(".section").forEach((element) => {
-		element.style.minHeight = element.getBoundingClientRect().height + "px";
+		element.style.minHeight = `${element.getBoundingClientRect().height}px`;
 	});
 }
 fetchAndLogTextFile("./landing-new/ascii-art.txt");

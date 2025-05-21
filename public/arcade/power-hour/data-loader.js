@@ -7,7 +7,7 @@ async function pullFromStorage() {
 		return null;
 	}
 
-	const now = new Date().getTime();
+	const now = Date.now();
 	const expiration = 1000 * 60 * 5; // 5 min
 	const isExpired = now - ts > expiration;
 
@@ -25,7 +25,7 @@ async function fetchData() {
 
 async function setToStorage(data) {
 	localStorage.setItem("fetchedData", JSON.stringify(data));
-	localStorage.setItem("fetchedDataTimestamp", new Date().getTime());
+	localStorage.setItem("fetchedDataTimestamp", Date.now());
 }
 
 async function fetchedDataLoader() {

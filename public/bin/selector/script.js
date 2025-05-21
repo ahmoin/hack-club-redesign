@@ -1,5 +1,5 @@
 const partsLimit = 8;
-var fetchedParts;
+var _fetchedParts;
 
 /*
 async function preloadImage(item) {
@@ -17,14 +17,14 @@ function getSelectedItems() {
 	return document.querySelectorAll(".selected");
 }
 function recalculateSelected() {
-	let numSelectedItems = getSelectedItems().length;
-	let selections = [];
+	const numSelectedItems = getSelectedItems().length;
+	const selections = [];
 	items = document.querySelectorAll(".selector-item");
 	document.querySelector(".selector-number").innerText =
 		`${partsLimit - numSelectedItems} choices remaining.`;
-	if (partsLimit - numSelectedItems == 0) {
+	if (partsLimit - numSelectedItems === 0) {
 		items.forEach((item) => {
-			let isSelected = item.className.includes("selected");
+			const isSelected = item.className.includes("selected");
 			if (!isSelected) {
 				item.classList.add("disabled");
 			}
@@ -32,7 +32,7 @@ function recalculateSelected() {
 		document.querySelector(".selector-number").classList.add("disabled");
 	} else {
 		items.forEach((item) => {
-			let isDisabled = item.className.includes("disabled");
+			const isDisabled = item.className.includes("disabled");
 			if (isDisabled) {
 				item.classList.remove("disabled");
 			}
@@ -53,26 +53,26 @@ function addPartToPage(part) {
         <div class="selector-item-description">Records sounds</div>
     </div>
     */
-	let selectorItem = document.createElement("div");
+	const selectorItem = document.createElement("div");
 	selectorItem.setAttribute("part_name", part.wokwiName);
 	selectorItem.className = "selector-item";
 
-	let selectorImage = document.createElement("img");
+	const selectorImage = document.createElement("img");
 	selectorImage.src = part.imageUrl;
 	selectorImage.className = "selector-image";
 	selectorItem.appendChild(selectorImage);
 
-	let selectorItemName = document.createElement("div");
+	const selectorItemName = document.createElement("div");
 	selectorItemName.innerText = part.name;
 	selectorItemName.className = "selector-item-name";
 	selectorItem.appendChild(selectorItemName);
 
-	let selectorItemDesc = document.createElement("div");
+	const selectorItemDesc = document.createElement("div");
 	selectorItemDesc.innerText = part.flavorText;
 	selectorItemDesc.className = "selector-item-description";
 	selectorItem.appendChild(selectorItemDesc);
 	if (part.newPart) {
-		let newImage = document.createElement("img");
+		const newImage = document.createElement("img");
 		newImage.src = "../icons/new.png";
 		newImage.className = "new-tag";
 		selectorItem.appendChild(newImage);
@@ -83,14 +83,14 @@ function addPartToPage(part) {
 	if (part.outOfStock) {
 		//   selectorItem.classList.add("outOfStock");
 
-		let outOfStockDiv = document.createElement("div");
+		const outOfStockDiv = document.createElement("div");
 		outOfStockDiv.className = "outOfStock";
 
-		let outOfStockText = document.createElement("h1");
+		const outOfStockText = document.createElement("h1");
 		outOfStockText.innerText = "Out of Stock";
 		outOfStockText.className = "outOfStockText";
 
-		let outOfStockInnerText = document.createElement("p");
+		const outOfStockInnerText = document.createElement("p");
 		outOfStockInnerText.innerText = "Shipping times delayed";
 		outOfStockInnerText.className = "outOfStockInnerText";
 
@@ -105,15 +105,15 @@ function addPartToPage(part) {
 		part.currentStockIncludingNonFulfilled < 6 &&
 		!part.outOfStock
 	) {
-		let stockDiv = document.createElement("div");
+		const stockDiv = document.createElement("div");
 		stockDiv.className = "amountRemaining";
 
-		let stockText = document.createElement("h1");
+		const stockText = document.createElement("h1");
 		stockText.innerText =
-			part.currentStockIncludingNonFulfilled + " left in stock";
+			`${part.currentStockIncludingNonFulfilled} left in stock`;
 		stockText.className = "outOfStockText";
 
-		let stockInnerText = document.createElement("p");
+		const stockInnerText = document.createElement("p");
 		stockInnerText.innerText = "Shipping times may be delayed";
 		stockInnerText.className = "outOfStockInnerText";
 
@@ -121,13 +121,13 @@ function addPartToPage(part) {
 		stockDiv.appendChild(stockInnerText);
 		selectorItem.appendChild(stockDiv);
 
-		console.log("display amunt" + part.displayAmount);
-		console.log("current stock" + part.currentStockIncludingNonFulfilled);
+		console.log(`display amunt${part.displayAmount}`);
+		console.log(`current stock${part.currentStockIncludingNonFulfilled}`);
 
-		console.log("out of stock" + part.outOfStock);
+		console.log(`out of stock${part.outOfStock}`);
 	}
 	selectorItem.addEventListener("click", () => {
-		let isSelected = selectorItem.className.includes("selected");
+		const isSelected = selectorItem.className.includes("selected");
 		if (isSelected) {
 			selectorItem.classList.remove("selected");
 		} else {
@@ -139,20 +139,20 @@ function addPartToPage(part) {
 	});
 }
 
-window.addEventListener("load", async (e) => {
+window.addEventListener("load", async (_e) => {
 	console.log("Page loaded");
 	recalculateSelected();
 	const fetchedParts = await partsData();
 	console.log("fetchedParts", fetchedParts);
 	fetchedParts.forEach((part) => {
-		if (!(part.imageUrl == undefined)) {
+		if (!(part.imageUrl === undefined)) {
 			addPartToPage(part);
 		}
 	});
 
 	document.querySelector(".selector-continue").onclick = () => {
-		let selectedItems = getSelectedItems();
-		let selectedItemsArray = [];
+		const selectedItems = getSelectedItems();
+		const selectedItemsArray = [];
 		selectedItems.forEach((item) => {
 			selectedItemsArray.push(item.getAttribute("part_name"));
 		});

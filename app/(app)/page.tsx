@@ -23,12 +23,16 @@ export default function HomePage() {
 						Welcome to Hack Club
 					</h1>
 
-					<h2 className="text-4xl tracking-tight text-balance leading-tight sm:text-7xl sm:leading-tight">
-						We are{" "}
-						<span>
-							<SlackCountText />
-						</span>{" "}
-						teen hackers from around the world who code together
+					<h2 className="text-5xl tracking-tight text-balance flex flex-col sm:flex-row sm:text-7xl">
+						<span className="block">
+							We are{" "}
+							<span>
+								<SlackCountText />
+							</span>
+						</span>
+						<span className="block sm:ml-4">
+							teen hackers from around the world who code together
+						</span>
 					</h2>
 				</div>
 			</div>

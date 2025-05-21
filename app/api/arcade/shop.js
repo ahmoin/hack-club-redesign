@@ -7,7 +7,7 @@ export const shopParts = async () => {
 		baseID,
 		tableName: "Shop Items",
 	});
-	const ordersTable = new AirtablePlus({
+	const _ordersTable = new AirtablePlus({
 		apiKey: process.env.AIRTABLE_API_KEY,
 		baseID,
 		tableName: "Orders",
@@ -16,7 +16,7 @@ export const shopParts = async () => {
 	const records = await shopItemsTable.read();
 	const newRecordsPromise = records.map(async (record) => {
 		const fields = record.fields;
-		let stock = fields["Stock"];
+		let stock = fields.Stock;
 
 		if (stock && fields["Count of Orders Fulfilled"]) {
 			stock -= fields["Count of Orders Fulfilled"];
@@ -33,19 +33,19 @@ export const shopParts = async () => {
 	return newRecords;
 };
 
-export default async function handler(req, res) {
+export default async function handler(_req, res) {
 	const data = await shopParts();
 
 	const filteredData = data
-		.filter((record) => record["Enabled"])
+		.filter((record) => record.Enabled)
 		.map((record) => {
 			return {
-				name: record["Name"],
+				name: record.Name,
 				smallName: record["Small Name"],
-				description: record["Description"],
+				description: record.Description,
 				hours: record["Cost Hours"],
 				imageURL: record["Image URL"],
-				stock: record["Stock"],
+				stock: record.Stock,
 			};
 		});
 

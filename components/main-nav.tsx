@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { Flag } from "@/components/flag";
 
@@ -20,7 +19,7 @@ export function MainNav() {
 					{siteConfig.name}
 				</span>
 			</Link> */}
-			<Flag />
+			<Flag href="https://hackclub.com/" />
 			<nav className="flex items-center gap-4 text-sm xl:gap-6">
 				<Link
 					href="/clubs"

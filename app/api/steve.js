@@ -1,11 +1,11 @@
-const steveApiHandler = async (req, res) => {
+const steveApiHandler = async (_req, res) => {
 	const calendarId =
 		"c_e7c63a427761b0f300ede97f432ba4af24033daad26be86da0551b40b7968f00@group.calendar.google.com";
 
 	//This API key is for google calendar and has only read access to Steve
 	const apiKey = "AIzaSyD_8dEnTDle3WmaoOTvEW6L1GW540FU_wg";
 
-	let allBusyDays = new Set();
+	const allBusyDays = new Set();
 
 	try {
 		const currentDateTime = new Date();
@@ -43,7 +43,7 @@ const steveApiHandler = async (req, res) => {
 		const busyTimes = data.calendars[calendarId].busy;
 
 		// For each busy time range, extract all days that are busy:
-		for (let busy of busyTimes) {
+		for (const busy of busyTimes) {
 			let startDate = new Date(busy.start);
 			let endDate = new Date(busy.end);
 
@@ -62,7 +62,7 @@ const steveApiHandler = async (req, res) => {
 		}
 
 		return res.status(200).json([...allBusyDays]);
-	} catch (error) {
+	} catch (_error) {
 		return res.status(500).json({ error: "Failed to fetch busy times." });
 	}
 };

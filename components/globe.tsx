@@ -1,6 +1,6 @@
 "use client";
 
-import createGlobe, { COBEOptions } from "cobe";
+import createGlobe, { type COBEOptions } from "cobe";
 import { useMotionValue, useSpring } from "motion/react";
 import { useEffect, useRef } from "react";
 
@@ -93,7 +93,7 @@ export function Globe({
 			},
 		});
 
-		setTimeout(() => (canvasRef.current!.style.opacity = "1"), 0);
+		setTimeout(() => (canvasRef.current?.style.opacity = "1"), 0);
 		return () => {
 			globe.destroy();
 			window.removeEventListener("resize", onResize);

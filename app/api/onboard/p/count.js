@@ -5,7 +5,7 @@ export async function onboardProjectCount() {
 	return projects.length;
 }
 
-export default async function handler(req, res) {
+export default async function handler(_req, res) {
 	const count = await onboardProjectCount();
 
 	res.json({ count });

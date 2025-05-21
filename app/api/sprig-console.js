@@ -1,5 +1,5 @@
 export async function getConsoles() {
-	let data = await fetch(
+	const data = await fetch(
 		"https://airbridge.hackclub.com/v0.1/Sprig%20Waitlist/Requests",
 	).then((r) => r.json());
 
@@ -14,7 +14,7 @@ export async function getConsoles() {
 	return consoleCount;
 }
 
-export default async function SprigConsoles(req, res) {
+export default async function SprigConsoles(_req, res) {
 	let consoleCount = 100;
 	try {
 		consoleCount = await getConsoles();

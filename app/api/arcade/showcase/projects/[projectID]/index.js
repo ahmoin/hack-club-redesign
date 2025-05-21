@@ -16,7 +16,7 @@ export default async function handler(req, res) {
 	const { projectID } = req.query;
 
 	const projects = await airtable.read({
-		filterByFormula: `AND({User} = '${user.fields["Name"]}', RECORD_ID() = '${projectID}')`,
+		filterByFormula: `AND({User} = '${user.fields.Name}', RECORD_ID() = '${projectID}')`,
 		maxRecords: 1,
 	});
 	const p = projects[0];
@@ -25,37 +25,36 @@ export default async function handler(req, res) {
 		return res.status(404).json({ error: "Project not found" });
 	}
 
-	let screenshot;
+	let _screenshot;
 	try {
-		screenshot = JSON.parse(p.fields["ScreenshotLinks"]);
-	} catch (e) {
-		screenshot = [];
+		_screenshot = JSON.parse(p.fields.ScreenshotLinks);
+	} catch (_e) {
+		_screenshot = [];
 	}
 
-	let video;
+	let _video;
 	try {
-		video = JSON.parse(p.fields["VideoLinks"]);
-	} catch (e) {
-		video = [];
+		_video = JSON.parse(p.fields.VideoLinks);
+	} catch (_e) {
+		_video = [];
 	}
 
 	const results = {
 		id: p.id,
-		title: p.fields["Name"] || "",
-		description: p.fields["Description"] || "",
+		title: p.fields.Name || "",
+		description: p.fields.Description || "",
 		hours: p.fields["Estimated Hours"],
-		slackLink: p.fields["Slack Link"] || "",
 		codeLink: p.fields["Code Link"] || "",
 		slackLink: p.fields["Slack Link"] || "",
 		playLink: p.fields["Play Link"] || "",
-		images: (p.fields["Screenshot"] || []).map((i) => i.url),
+		images: (p.fields.Screenshot || []).map((i) => i.url),
 		githubProf: p.fields["Github Profile"] || "",
-		user: user.fields["Name"],
-		color: p.fields["color"] || "",
-		textColor: p.fields["textColor"] || "",
-		screenshot: p.fields["ScreenshotLink"] || "",
-		video: p.fields["Video"]?.[0]?.url || p.fields["VideoLink"] || "",
-		readMeLink: p.fields["ReadMeLink"] || "",
+		user: user.fields.Name,
+		color: p.fields.color || "",
+		textColor: p.fields.textColor || "",
+		screenshot: p.fields.ScreenshotLink || "",
+		video: p.fields.Video?.[0]?.url || p.fields.VideoLink || "",
+		readMeLink: p.fields.ReadMeLink || "",
 	};
 	return res.status(200).json({ project: results });
 }
