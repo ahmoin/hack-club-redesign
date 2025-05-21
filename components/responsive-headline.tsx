@@ -9,11 +9,11 @@ export function ResponsiveHeadline() {
 	return (
 		<>
 			{isMobile ? (
-				<h2 className="text-4xl tracking-tight text-balance leading-tight">
-					<div className="mb-2">
+				<h2 className="text-5xl tracking-tight text-balance leading-tight mt-8 max-w-9/10">
+					<div className="text-7xl">
 						We are{" "}
 					</div>
-					<SlackCountText className="mb-2" />
+					<SlackCountText className="text-7xl" />
 					<div>teen hackers from around the world who code together</div>
 				</h2>
 			) : (
