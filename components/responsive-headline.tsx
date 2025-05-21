@@ -1,18 +1,32 @@
 "use client";
 
-import Balancer from "react-wrap-balancer";
 import { SlackCountText } from "@/components/slack-count-text";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export function ResponsiveHeadline() {
+	const isMobile = useIsMobile();
+
 	return (
-		<h2 className="mt-8 font-medium text-5xl sm:text-7xl">
-			<Balancer>
-				We are{" "}
-				<span>
-					<SlackCountText />
-				</span>{" "}
-				teen hackers from around the world who code together
-			</Balancer>
-		</h2>
+		<>
+			{isMobile ? (
+				<h2 className="text-4xl tracking-tight text-balance leading-tight">
+                    <div className="mb-2">
+						We are{" "}
+					</div>
+					<div className="mb-2">
+						<SlackCountText />
+					</div>
+					<div>teen hackers from around the world who code together</div>
+				</h2>
+			) : (
+				<h2 className="text-5xl tracking-tight text-balance sm:text-7xl">
+					We are{" "}
+					<span>
+						<SlackCountText />
+					</span>{" "}
+					teen hackers from around the world who code together
+				</h2>
+			)}
+		</>
 	);
 }
