@@ -1,8 +1,8 @@
 export async function getGames() {
 	try {
-		const games = await fetch("https://sprig.hackclub.com/api/gallery?new").then(
-			(res) => res.json(),
-		);
+		const games = await fetch(
+			"https://sprig.hackclub.com/api/gallery?new",
+		).then((res) => res.json());
 
 		return games;
 	} catch (e) {

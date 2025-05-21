@@ -109,8 +109,7 @@ function addPartToPage(part) {
 		stockDiv.className = "amountRemaining";
 
 		const stockText = document.createElement("h1");
-		stockText.innerText =
-			`${part.currentStockIncludingNonFulfilled} left in stock`;
+		stockText.innerText = `${part.currentStockIncludingNonFulfilled} left in stock`;
 		stockText.className = "outOfStockText";
 
 		const stockInnerText = document.createElement("p");

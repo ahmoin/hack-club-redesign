@@ -59,13 +59,7 @@ export default async function handler(req, res) {
 			const points = pointsDistribution[i];
 
 			votesToCreate.push(
-				addVote(
-					project,
-					points,
-					user.id,
-					user.fields?.Cohorts?.[0],
-					"Overall",
-				),
+				addVote(project, points, user.id, user.fields?.Cohorts?.[0], "Overall"),
 			);
 		}
 
