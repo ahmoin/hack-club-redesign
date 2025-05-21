@@ -61,7 +61,7 @@ export function Globe({
 						return true;
 					})
 					.map(({ fields: x }) => ({
-						location: [x.Latitude!, x.Longitude!],
+						location: [x.Latitude!, x.Longitude!] as [number, number],
 						size: 0.05,
 					}));
 
