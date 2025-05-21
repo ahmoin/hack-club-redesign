@@ -22,7 +22,8 @@ export default function HomePage() {
 					<h1 className="text-3xl tracking-tight text-balance sm:text-5xl">
 						Welcome to Hack Club
 					</h1>
-					<h2 className="text-5xl tracking-tight text-balance sm:text-7xl">
+
+					<h2 className="text-4xl tracking-tight text-balance leading-tight sm:text-7xl sm:leading-tight">
 						We are{" "}
 						<span>
 							<SlackCountText />
