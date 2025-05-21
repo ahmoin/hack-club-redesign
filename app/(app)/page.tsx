@@ -25,21 +25,23 @@ export default function HomePage() {
 					<ResponsiveHeadline />
 				</div>
 			</div>
-			<div className="relative flex -mt-(--header-height) max-h-[690px] min-h-[690px] items-center justify-center">
-				<div className="container relative z-10 mx-auto mt-2xl flex max-w-[1057px] flex-col items-center justify-center gap-y-2xl text-center md:mt-lg md:gap-y-3xl text-white font-bold">
-					<h1 className="text-5xl tracking-tight text-balance sm:text-7xl">
-						Discover the <ColorfulText text={"joy of code,"} /> together.
-					</h1>
-					<h2 className="mt-8 text-lg font-medium text-pretty sm:text-xl/8">
-						Every day, thousands of Hack Clubbers gather online and in-person to
-						make things with code. Whether you're a beginner programmer or have
-						years of experience, there's a place for you at Hack Club. Read
-						about our hacker ethic.
-					</h2>
+			<div className="relative flex -mt-(--header-height) max-h-[690px] min-h-[690px] items-center justify-center pt-72 sm:pt-0">
+				<div className="container relative z-10 mx-auto mt-2xl flex max-w-[1057px] flex-col sm:flex-row items-center justify-center gap-y-2xl text-center md:mt-lg md:gap-y-3xl text-white font-bold">
+					<div className="flex flex-col">
+						<h1 className="text-5xl tracking-tight text-balance sm:text-7xl">
+							Discover the <ColorfulText text={"joy of code,"} /> together.
+						</h1>
+						<h2 className="mt-8 text-lg font-medium text-pretty sm:text-xl/8">
+							Every day, thousands of Hack Clubbers gather online and in-person
+							to make things with code. Whether you're a beginner programmer or
+							have years of experience, there's a place for you at Hack Club.
+							Read about our hacker ethic.
+						</h2>
+					</div>
 					<Globe />
 				</div>
 			</div>
-			<div className="h-[50svh] relative w-[99svw] -mt-32 flex items-center justify-center">
+			<div className="h-[50svh] relative w-[99svw] flex items-center justify-center">
 				<CircularGallery bend={3} textColor="#ffffff" borderRadius={0.05} />
 			</div>
 		</div>
