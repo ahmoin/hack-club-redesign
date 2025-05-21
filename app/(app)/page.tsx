@@ -18,7 +18,7 @@ export default function HomePage() {
 					height={1080}
 					priority
 				/>
-				<div className="container relative z-10 mt-2xl flex max-w-7xl flex-col items-center justify-center gap-y-2xl text-center md:mt-lg md:gap-y-3xl text-white font-bold">
+				<div className="container relative z-10 mt-2xl flex max-w-9/10 flex-col items-center justify-center gap-y-2xl text-center md:mt-lg md:gap-y-3xl text-white font-bold">
 					<h1 className="text-3xl tracking-tight text-balance sm:text-5xl">
 						Welcome to Hack Club
 					</h1>
