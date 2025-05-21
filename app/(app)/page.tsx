@@ -1,8 +1,8 @@
+import Image from "next/image";
 import { CircularGallery } from "@/components/circular-gallery";
 import { ColorfulText } from "@/components/colorful-text";
-import { SlackCountText } from "@/components/slack-count-text";
 import { Globe } from "@/components/globe";
-import Image from "next/image";
+import { ResponsiveHeadline } from "@/components/responsive-headline";
 
 export default function HomePage() {
 	return (
@@ -22,18 +22,7 @@ export default function HomePage() {
 					<h1 className="text-3xl tracking-tight text-balance sm:text-5xl">
 						Welcome to Hack Club
 					</h1>
-
-					<h2 className="text-5xl tracking-tight text-balance flex flex-col sm:flex-row sm:text-7xl">
-						<span className="block">
-							We are{" "}
-							<span>
-								<SlackCountText />
-							</span>
-						</span>
-						<span className="block sm:ml-4">
-							teen hackers from around the world who code together
-						</span>
-					</h2>
+					<ResponsiveHeadline />
 				</div>
 			</div>
 			<div className="relative flex -mt-(--header-height) max-h-[690px] min-h-[690px] items-center justify-center">
