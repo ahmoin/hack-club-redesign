@@ -1,6 +1,7 @@
 import { CircularGallery } from "@/components/circular-gallery";
 import { ColorfulText } from "@/components/colorful-text";
 import { SlackCountText } from "@/components/slack-count-text";
+import { Globe } from "@/components/globe";
 import Image from "next/image";
 
 export default function HomePage() {
@@ -17,11 +18,11 @@ export default function HomePage() {
 					height={1080}
 					priority
 				/>
-				<div className="container relative z-10 mx-auto mt-2xl flex max-w-[1057px] flex-col items-center justify-center gap-y-2xl text-center md:mt-lg md:gap-y-3xl text-white font-bold">
-					<h1 className="text-5xl tracking-tight text-balance sm:text-7xl">
+				<div className="container relative z-10 mt-2xl flex max-w-7xl flex-col items-center justify-center gap-y-2xl text-center md:mt-lg md:gap-y-3xl text-white font-bold">
+					<h1 className="text-3xl tracking-tight text-balance sm:text-5xl">
 						Welcome to Hack Club
 					</h1>
-					<h2 className="mt-8 text-lg font-medium text-pretty sm:text-xl/8">
+					<h2 className="text-5xl tracking-tight text-balance sm:text-7xl">
 						We are{" "}
 						<span>
 							<SlackCountText />
@@ -36,12 +37,12 @@ export default function HomePage() {
 						Discover the <ColorfulText text={"joy of code,"} /> together.
 					</h1>
 					<h2 className="mt-8 text-lg font-medium text-pretty sm:text-xl/8">
-						We are{" "}
-						<span>
-							<SlackCountText />
-						</span>{" "}
-						teen hackers from around the world who code together
+						Every day, thousands of Hack Clubbers gather online and in-person to
+						make things with code. Whether you're a beginner programmer or have
+						years of experience, there's a place for you at Hack Club. Read
+						about our hacker ethic.
 					</h2>
+					<Globe />
 				</div>
 			</div>
 			<div className="h-[50svh] relative w-[99svw] -mt-32 flex items-center justify-center">
