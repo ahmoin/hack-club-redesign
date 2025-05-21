@@ -10,7 +10,7 @@ export function ResponsiveHeadline() {
 		<>
 			{isMobile ? (
 				<h2 className="text-4xl tracking-tight text-balance leading-tight">
-					<div className="mb-2 max-w-3/4 min-w-3/4">
+					<div className="mb-2 min-w-[480px] max-w-[480px]">
 						We are{" "}
 						<span>
 							<SlackCountText />
