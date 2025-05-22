@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useEffect, useRef } from "react";
 import {
 	Renderer,
 	Camera,
@@ -302,7 +302,8 @@ class Media {
           
           gl_FragColor = vec4(color.rgb, 1.0);
         }
-      `,      uniforms: {
+      `,
+			uniforms: {
 				tMap: { value: texture },
 				uPlaneSizes: { value: [0, 0] },
 				uImageSizes: { value: [0, 0] },
@@ -315,45 +316,44 @@ class Media {
 		});
 
 		// Add hover handler to the canvas
-		this.renderer.gl.canvas.addEventListener('mousemove', (e) => {
+		this.renderer.gl.canvas.addEventListener("mousemove", (e) => {
 			const rect = this.renderer.gl.canvas.getBoundingClientRect();
 			const x = e.clientX - rect.left;
 			const y = e.clientY - rect.top;
-			
+
 			// Convert to clip space coordinates
 			const clipX = (x / rect.width) * 2 - 1;
 			const clipY = -(y / rect.height) * 2 + 1;
-			
+
 			// Check if mouse is over this media's plane
 			const planePos = this.plane.position;
 			const planeScale = this.plane.scale;
-			const isHovered = 
-				clipX >= (planePos.x - planeScale.x/2) / (this.viewport.width/2) &&
-				clipX <= (planePos.x + planeScale.x/2) / (this.viewport.width/2) &&
-				clipY >= (planePos.y - planeScale.y/2) / (this.viewport.height/2) &&
-				clipY <= (planePos.y + planeScale.y/2) / (this.viewport.height/2);				// Smoothly animate the hover value
+			const isHovered =
+				clipX >= (planePos.x - planeScale.x / 2) / (this.viewport.width / 2) &&
+				clipX <= (planePos.x + planeScale.x / 2) / (this.viewport.width / 2) &&
+				clipY >= (planePos.y - planeScale.y / 2) / (this.viewport.height / 2) &&
+				clipY <= (planePos.y + planeScale.y / 2) / (this.viewport.height / 2); // Smoothly animate the hover value
 			const targetHover = isHovered ? 1 : 0;
-			this.program.uniforms.uHover.value += (targetHover - this.program.uniforms.uHover.value);
+			this.program.uniforms.uHover.value +=
+				targetHover - this.program.uniforms.uHover.value;
 		});
 
-		// Add click handler
-		this.renderer.gl.canvas.addEventListener('click', (e) => {
+		this.renderer.gl.canvas.addEventListener("click", (e) => {
 			const rect = this.renderer.gl.canvas.getBoundingClientRect();
 			const x = e.clientX - rect.left;
 			const y = e.clientY - rect.top;
-			
-			// Convert to clip space coordinates
+
 			const clipX = (x / rect.width) * 2 - 1;
 			const clipY = -(y / rect.height) * 2 + 1;
-			
-			// Check if click is on this media's plane
+
 			const planePos = this.plane.position;
 			const planeScale = this.plane.scale;
-			const isClicked = 
-				clipX >= (planePos.x - planeScale.x/2) / (this.viewport.width/2) &&
-				clipX <= (planePos.x + planeScale.x/2) / (this.viewport.width/2) &&
-				clipY >= (planePos.y - planeScale.y/2) / (this.viewport.height/2) &&
-				clipY <= (planePos.y + planeScale.y/2) / (this.viewport.height/2);
+
+			const isClicked =
+				clipX >= (planePos.x - planeScale.x / 2) / (this.viewport.width / 2) &&
+				clipX <= (planePos.x + planeScale.x / 2) / (this.viewport.width / 2) &&
+				clipY >= (planePos.y - planeScale.y / 2) / (this.viewport.height / 2) &&
+				clipY <= (planePos.y + planeScale.y / 2) / (this.viewport.height / 2);
 
 			if (isClicked && this.href) {
 				window.location.href = this.href;
@@ -470,7 +470,7 @@ class Media {
 }
 
 interface AppConfig {
-	items?: { image: string; text: string }[];
+	items?: { image: string; text: string, href: string }[];
 	bend?: number;
 	textColor?: string;
 	borderRadius?: number;
@@ -493,7 +493,7 @@ class App {
 	scene!: Transform;
 	planeGeometry!: Plane;
 	medias: Media[] = [];
-	mediasImages: { image: string; text: string }[] = [];
+	mediasImages: { image: string; text: string, href: string }[] = [];
 	screen!: { width: number; height: number };
 	viewport!: { width: number; height: number };
 	raf: number = 0;
@@ -556,7 +556,7 @@ class App {
 	}
 
 	createMedias(
-		items: { image: string; text: string }[] | undefined,
+		items: { image: string; text: string, href: string }[] | undefined,
 		bend: number = 1,
 		textColor: string,
 		borderRadius: number,
@@ -642,6 +642,7 @@ class App {
 				textColor,
 				borderRadius,
 				font,
+				href: data.href,
 			});
 		});
 	}
@@ -749,7 +750,7 @@ class App {
 }
 
 interface CircularGalleryProps {
-	items?: { image: string; text: string; href?: string }[];
+	items?: { image: string; text: string; href: string }[];
 	bend?: number;
 	textColor?: string;
 	borderRadius?: number;
