@@ -254,11 +254,14 @@ class Media {
         uniform mat4 projectionMatrix;
         uniform float uTime;
         uniform float uSpeed;
+        uniform float uHover;
         varying vec2 vUv;
         void main() {
           vUv = uv;
           vec3 p = position;
           p.z = (sin(p.x * 4.0 + uTime) * 1.5 + cos(p.y * 2.0 + uTime) * 1.5) * (0.1 + uSpeed * 0.5);
+          // Scale the position based on hover
+          p *= 1.0 + (uHover * 0.1);
           gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
         }
       `,
@@ -295,17 +298,42 @@ class Media {
           
           gl_FragColor = vec4(color.rgb, 1.0);
         }
-      `,
-			uniforms: {
+      `,      uniforms: {
 				tMap: { value: texture },
 				uPlaneSizes: { value: [0, 0] },
 				uImageSizes: { value: [0, 0] },
 				uSpeed: { value: 0 },
 				uTime: { value: 100 * Math.random() },
 				uBorderRadius: { value: this.borderRadius },
+				uHover: { value: 0 },
 			},
 			transparent: true,
 		});
+
+		// Add hover handler to the canvas
+		this.renderer.gl.canvas.addEventListener('mousemove', (e) => {
+			const rect = this.renderer.gl.canvas.getBoundingClientRect();
+			const x = e.clientX - rect.left;
+			const y = e.clientY - rect.top;
+			
+			// Convert to clip space coordinates
+			const clipX = (x / rect.width) * 2 - 1;
+			const clipY = -(y / rect.height) * 2 + 1;
+			
+			// Check if mouse is over this media's plane
+			const planePos = this.plane.position;
+			const planeScale = this.plane.scale;
+			const isHovered = 
+				clipX >= (planePos.x - planeScale.x/2) / (this.viewport.width/2) &&
+				clipX <= (planePos.x + planeScale.x/2) / (this.viewport.width/2) &&
+				clipY >= (planePos.y - planeScale.y/2) / (this.viewport.height/2) &&
+				clipY <= (planePos.y + planeScale.y/2) / (this.viewport.height/2);
+			
+			// Smoothly animate the hover value
+			const targetHover = isHovered ? 1 : 0;
+			this.program.uniforms.uHover.value += (targetHover - this.program.uniforms.uHover.value) * 0.1;
+		});
+
 		const img = new Image();
 		img.crossOrigin = "anonymous";
 		img.src = this.image;
