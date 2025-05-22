@@ -175,6 +175,7 @@ interface MediaProps {
 	textColor: string;
 	borderRadius?: number;
 	font?: string;
+	href?: string;
 }
 
 class Media {
@@ -193,6 +194,7 @@ class Media {
 	textColor: string;
 	borderRadius: number;
 	font?: string;
+	href?: string;
 	program!: Program;
 	plane!: Mesh;
 	title!: Title;
@@ -220,6 +222,7 @@ class Media {
 		textColor,
 		borderRadius = 0,
 		font,
+		href,
 	}: MediaProps) {
 		this.geometry = geometry;
 		this.gl = gl;
@@ -235,6 +238,7 @@ class Media {
 		this.textColor = textColor;
 		this.borderRadius = borderRadius;
 		this.font = font;
+		this.href = href;
 		this.createShader();
 		this.createMesh();
 		this.createTitle();
@@ -327,11 +331,33 @@ class Media {
 				clipX >= (planePos.x - planeScale.x/2) / (this.viewport.width/2) &&
 				clipX <= (planePos.x + planeScale.x/2) / (this.viewport.width/2) &&
 				clipY >= (planePos.y - planeScale.y/2) / (this.viewport.height/2) &&
-				clipY <= (planePos.y + planeScale.y/2) / (this.viewport.height/2);
-			
-			// Smoothly animate the hover value
+				clipY <= (planePos.y + planeScale.y/2) / (this.viewport.height/2);				// Smoothly animate the hover value
 			const targetHover = isHovered ? 1 : 0;
-			this.program.uniforms.uHover.value += (targetHover - this.program.uniforms.uHover.value) * 0.1;
+			this.program.uniforms.uHover.value += (targetHover - this.program.uniforms.uHover.value);
+		});
+
+		// Add click handler
+		this.renderer.gl.canvas.addEventListener('click', (e) => {
+			const rect = this.renderer.gl.canvas.getBoundingClientRect();
+			const x = e.clientX - rect.left;
+			const y = e.clientY - rect.top;
+			
+			// Convert to clip space coordinates
+			const clipX = (x / rect.width) * 2 - 1;
+			const clipY = -(y / rect.height) * 2 + 1;
+			
+			// Check if click is on this media's plane
+			const planePos = this.plane.position;
+			const planeScale = this.plane.scale;
+			const isClicked = 
+				clipX >= (planePos.x - planeScale.x/2) / (this.viewport.width/2) &&
+				clipX <= (planePos.x + planeScale.x/2) / (this.viewport.width/2) &&
+				clipY >= (planePos.y - planeScale.y/2) / (this.viewport.height/2) &&
+				clipY <= (planePos.y + planeScale.y/2) / (this.viewport.height/2);
+
+			if (isClicked && this.href) {
+				window.location.href = this.href;
+			}
 		});
 
 		const img = new Image();
@@ -540,50 +566,62 @@ class App {
 			{
 				image: `https://picsum.photos/seed/1/800/600?grayscale`,
 				text: "Bridge",
+				href: "https://hackclub.com",
 			},
 			{
 				image: `https://picsum.photos/seed/2/800/600?grayscale`,
 				text: "Desk Setup",
+				href: "https://hackclub.com",
 			},
 			{
 				image: `https://picsum.photos/seed/3/800/600?grayscale`,
 				text: "Waterfall",
+				href: "https://hackclub.com",
 			},
 			{
 				image: `https://picsum.photos/seed/4/800/600?grayscale`,
 				text: "Strawberries",
+				href: "https://hackclub.com",
 			},
 			{
 				image: `https://picsum.photos/seed/5/800/600?grayscale`,
 				text: "Deep Diving",
+				href: "https://hackclub.com",
 			},
 			{
 				image: `https://picsum.photos/seed/16/800/600?grayscale`,
 				text: "Train Track",
+				href: "https://hackclub.com",
 			},
 			{
 				image: `https://picsum.photos/seed/17/800/600?grayscale`,
 				text: "Santorini",
+				href: "https://hackclub.com",
 			},
 			{
 				image: `https://picsum.photos/seed/8/800/600?grayscale`,
 				text: "Blurry Lights",
+				href: "https://hackclub.com",
 			},
 			{
 				image: `https://picsum.photos/seed/9/800/600?grayscale`,
 				text: "New York",
+				href: "https://hackclub.com",
 			},
 			{
 				image: `https://picsum.photos/seed/10/800/600?grayscale`,
 				text: "Good Boy",
+				href: "https://hackclub.com",
 			},
 			{
 				image: `https://picsum.photos/seed/21/800/600?grayscale`,
 				text: "Coastline",
+				href: "https://hackclub.com",
 			},
 			{
 				image: `https://picsum.photos/seed/12/800/600?grayscale`,
 				text: "Palm Trees",
+				href: "https://hackclub.com",
 			},
 		];
 		const galleryItems = items?.length ? items : defaultItems;
@@ -711,7 +749,7 @@ class App {
 }
 
 interface CircularGalleryProps {
-	items?: { image: string; text: string }[];
+	items?: { image: string; text: string; href?: string }[];
 	bend?: number;
 	textColor?: string;
 	borderRadius?: number;
